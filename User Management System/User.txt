@@ -1,3 +1,0 @@
-1,John,john@example.com,12345,regular
-2,Alice,alice@example.com,67890,regular
-1,b,b,b,Power

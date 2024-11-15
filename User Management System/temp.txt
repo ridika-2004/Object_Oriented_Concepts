@@ -1,3 +1,0 @@
-1,c,c,c,regular
-2,Alice,alice@example.com,67890,regular
-1,c,c,c,regular
