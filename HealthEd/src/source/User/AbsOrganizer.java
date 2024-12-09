@@ -1,14 +1,14 @@
 package source.User;
 
-public abstract class AbsOrganizer extends User {
-    
-    // Constructor to initialize AbsOrganizer
-    public AbsOrganizer(String name, String email) {
-        super(name, email);
-    }
+import source.Utility.*;
 
-    // Abstract methods for managing workshops
-    public abstract void createWorkshop(String title, String topic, String date, String speaker);
-    public abstract void editWorkshop(Workshop workshop, String title, String topic, String date, String speaker);
-    public abstract void deleteWorkshop(Workshop workshop);
+public abstract class AbsOrganizer extends User {
+
+    public abstract void createWorkshop(String filePath, IFileWriteUtility fileWriteUtility);
+
+    public abstract void editWorkshop(String workshopName, String filePath, IFileWriteUtility fileWriteUtility);
+
+    public abstract void deleteWorkshop(String workshopName, String filePath, IFileWriteUtility fileWriteUtility);
+
+    public abstract void addResources(String filePath, IFileWriteUtility fileWriteUtility);
 }

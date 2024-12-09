@@ -1,62 +1,43 @@
 package source.User;
+import source.Utility.*;
+import java.util.Scanner;
 
 public class Organizer extends AbsOrganizer {
-    
-    // Constructor to initialize Organizer
-    public Organizer(String name, String email) {
-        super(name, email);
-    }
-
-    // Implementing abstract methods from AbsOrganizer
 
     @Override
-    public void createWorkshop(String title, String topic, String date, String speaker) {
-        Workshop newWorkshop = new Workshop(title, topic, date, speaker, new FileManager());
-        newWorkshop.saveToFile();
-        System.out.println("Workshop created: " + title);
-    }
+    public void createWorkshop(String filePath, IFileWriteUtility fileWriteUtility) {
+        Scanner scanner = new Scanner(System.in);
+        String workshopName = getInput("Enter Workshop Name: ", scanner);
+        String workshopDate = DateValidator.getValidDate(scanner);
+        String speaker = getInput("Enter Speaker Name: ", scanner);
 
-    @Override
-    public void editWorkshop(Workshop workshop, String title, String topic, String date, String speaker) {
-        workshop.setTitle(title);
-        workshop.setTopic(topic);
-        workshop.setDate(date);
-        workshop.setSpeaker(speaker);
-        workshop.saveToFile();
-        System.out.println("Workshop edited: " + title);
+        String workshopDetails = workshopName + "," + workshopDate + "," + speaker;
+        fileWriteUtility.appendToFile(filePath, workshopDetails);
+        System.out.println("Workshop created and saved successfully!");
     }
 
     @Override
-    public void deleteWorkshop(Workshop workshop) {
-        // Deleting the workshop by removing its content from the file
-        FileManager fileManager = new FileManager();
-        fileManager.delete("workshop.txt");  // Here you can modify to delete specific data or implement a different method for deletion
-        System.out.println("Workshop deleted: " + workshop.getTitle());
-    }
-
-    // Implementing abstract methods from User class
-
-    @Override
-    public void viewUpcomingWorkshops() {
-        System.out.println("Viewing upcoming workshops...");
-        // Code to display upcoming workshops
+    public void editWorkshop(String workshopName, String filePath, IFileWriteUtility fileWriteUtility) {
     }
 
     @Override
-    public void displayProfile() {
-        System.out.println("Name: " + getName());
-        System.out.println("Email: " + getEmail());
+    public void deleteWorkshop(String workshopName, String filePath, IFileWriteUtility fileWriteUtility) {
     }
 
     @Override
-    public void displayPastWorkshopEducationalResources() {
-        System.out.println("Displaying past workshop educational resources...");
-        // Code to display past workshop resources
+    public void addResources(String filePath, IFileWriteUtility fileWriteUtility) {
+        Scanner scanner = new Scanner(System.in);
+        String authorName = getInput("Enter Author Name: ", scanner);
+        String topic = getInput("Enter Topic: ", scanner);
+
+        String educationalResources = ResourceCollector.collectResources(scanner);
+        String workshopDetails = authorName + "," + topic + "," + educationalResources;
+        fileWriteUtility.appendToFile(filePath, workshopDetails);
+        System.out.println("Educational resources added successfully!");
     }
 
-    @Override
-    public void registerForWorkshop(Workshop workshop) {
-        System.out.println("Registering for workshop: " + workshop.getTitle());
-        // Code to register for a workshop
+    private String getInput(String prompt, Scanner scanner) {
+        System.out.print(prompt);
+        return scanner.nextLine().trim();
     }
 }

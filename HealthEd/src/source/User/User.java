@@ -20,8 +20,8 @@ public class User {
         return email;
     }
 
-    public void registerForWorkshop(IFileWriteUtility fileWriteUtility, String filepath, String workshopID) {
-        fileWriteUtility.appendToFile(filepath,workshopID+name);
+    public void registerForWorkshop(IFileWriteUtility fileWriteUtility, String filepath, String workshopName) {
+        fileWriteUtility.appendToFile(filepath,workshopName+name);
     }
 
     public void viewWorkshops(IFileReaderUtility fileReadUtility, String filepath, boolean upcoming) {
@@ -41,6 +41,10 @@ public class User {
                 System.out.println(workshopID + " on " + workshopDate);
             }
         }
+    }
+
+    public void viewResources(IFileReaderUtility fileReadUtility, String filepath){
+
     }
 
     public void displayProfile() {
